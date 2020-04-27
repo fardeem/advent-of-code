@@ -37,6 +37,7 @@ for command in wire_1:
 min_steps = 10000000
 last_coordinate = [0, 0]
 steps_offset = 0
+intersection_dist = 1000000
 for command in wire_2:
     c = command[0]
     steps = int(command[1:])
@@ -53,10 +54,13 @@ for command in wire_2:
 
         # print(last_coordinate, c)
         if str(last_coordinate) in path:
+            intersection_dist = min(
+                intersection_dist, manhattan_distance([0, 0], last_coordinate))
             steps_till_now = steps_offset + step
             min_steps = min(min_steps, steps_till_now +
                             path[str(last_coordinate)])
 
     steps_offset += steps
 
+print(intersection_dist)
 print(min_steps)
